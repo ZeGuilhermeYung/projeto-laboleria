@@ -1,8 +1,8 @@
 import db from "../database/db.js";
 
-async function insertPost(url, description, userId) {
-  const query = `INSERT INTO posts (url, description , "userId") VALUES ( $1, $2, $3 );`;
-  return db.query(query, [url, description, userId]);
+async function insertClient(name, address, phone) {
+  const query = `INSERT INTO clients (name, address , phone) VALUES ( $1, $2, $3 );`;
+  return db.query(query, [name, address, phone]);
 }
 
 async function getPosts() {
@@ -21,11 +21,11 @@ async function updatePost(id, description) {
   return db.query(query, [id, description]);
 }
 
-const postsRepository = {
-  insertPost,
-  getPosts, 
+const clientsRepository = {
+  insertClient,
+  getclients,
   deletePost,
   updatePost,
 };
 
-export { postsRepository };
+export { clientsRepository };
