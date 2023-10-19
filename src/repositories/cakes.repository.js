@@ -22,12 +22,11 @@ async function cakeRegistered(name) {
   return result.rows[0];
 }
 
-const cakeRepository = {
+const cakesRepository = {
   insertCake,
-  signInAuth,
   sessionAuth,
   findSession,
   cakeRegistered  
 };
 
-export { cakeRepository };
+export { cakesRepository };
