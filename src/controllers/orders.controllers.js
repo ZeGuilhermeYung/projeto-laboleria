@@ -1,11 +1,10 @@
-import { postsRepository } from "../repositories/posts.repository.js";
+import { ordersRepository } from "../repositories/orders.repository.js";
 
-async function createPost (req, res) {
-    const { url, description } = res.locals.body;
-    const { userId } = res.locals;
+async function postOrder (req, res) {
+    const { clientId, cakeId, quantity, totalPrice } = res.locals.body;
 
     try {
-        await postsRepository.insertPost(url, description, userId);
+        await ordersRepository.insertOrder(clientId, cakeId, quantity, totalPrice);
 
         return res.sendStatus(201);
     } catch (error) {
@@ -47,4 +46,4 @@ async function getAllPosts (req, res) {
     };
 };
 
-export { createPost, changePost, removePost, getAllPosts };
+export { postOrder, changePost, removePost, getAllPosts };

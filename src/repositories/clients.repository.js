@@ -5,10 +5,10 @@ async function insertClient(name, address, phone) {
   return db.query(query, [name, address, phone]);
 }
 
-async function getPosts() {
-  const query = `SELECT * FROM posts ORDER BY id DESC LIMIT 20;`;
-  const result = await db.query(query);
-  return result.rows;
+async function findClient(id) {
+  const query = `SELECT * FROM clients WHERE id = $1;`;
+  const result = await db.query(query, [id]);
+  return result.rows[0];
 }
 
 async function deletePost(id) {
@@ -23,6 +23,7 @@ async function updatePost(id, description) {
 
 const clientsRepository = {
   insertClient,
+  findClient,
   deletePost,
   updatePost,
 };

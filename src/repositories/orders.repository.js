@@ -23,7 +23,6 @@ async function insertOrder(clientId, cakeId, quantity, totalPrice) {
   
   const ordersRepository = {
     insertOrder,
-    getorders, 
     deletePost,
     updatePost,
   };
