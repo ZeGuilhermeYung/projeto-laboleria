@@ -1,7 +1,7 @@
 import db from "../database/db.js";
 
 async function insertClient(name, address, phone) {
-  const query = `INSERT INTO clients (name, address , phone) VALUES ( $1, $2, $3 );`;
+  const query = `INSERT INTO clients (name, address, phone) VALUES ( $1, $2, $3 );`;
   return db.query(query, [name, address, phone]);
 }
 
@@ -23,7 +23,6 @@ async function updatePost(id, description) {
 
 const clientsRepository = {
   insertClient,
-  getclients,
   deletePost,
   updatePost,
 };

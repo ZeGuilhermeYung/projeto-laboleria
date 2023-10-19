@@ -12,18 +12,4 @@ async function postCake (req, res) {
     };
 };
 
-async function signIn (req, res) {
-    try {
-        const { userId, username, photo } = res.locals.user;
-        
-        const token = uuid();
-
-        await cakesRepository.signIncakes(userId, token);
-
-        return res.status(200).send({ token, username, photo });
-    } catch (error) {
-        return res.status(500).send(error);
-    };
-};
-
-export { postCake, signIn };
+export { postCake };

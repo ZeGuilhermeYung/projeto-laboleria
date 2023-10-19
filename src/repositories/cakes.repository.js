@@ -5,11 +5,6 @@ async function insertCake(name, price, image, description) {
   return db.query(query, [name, price, image, description]);
 }
 
-async function sessionAuth(userId, token) {
-  const query = `SELECT * FROM sessions WHERE "userId" = $1 AND token = $2;`;
-  return db.query(query, [userId, token]);
-}
-
 async function findSession(token) {
   const query = `SELECT * FROM sessions WHERE token = $1;`;
   const result = await db.query(query, [token]);
@@ -24,7 +19,6 @@ async function cakeRegistered(name) {
 
 const cakesRepository = {
   insertCake,
-  sessionAuth,
   findSession,
   cakeRegistered  
 };

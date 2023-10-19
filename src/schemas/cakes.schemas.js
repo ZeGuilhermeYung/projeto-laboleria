@@ -1,6 +1,6 @@
 import joi from 'joi';
 
-const photoRegex = /(http[s]?:\/\/.*\.(?:png|jpg|gif|svg|jpeg))/i;
+const photoRegex = new RegExp(/(http[s]?:\/\/.*\.(?:png|jpg|gif|svg|jpeg))/i);
 
 const cakesSchema = joi.object({
     name: joi.string().min(2).required(),
