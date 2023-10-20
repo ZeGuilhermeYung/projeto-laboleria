@@ -23,4 +23,4 @@ async function validateCake (req, res, next) {
   }
 }
 
-export { validateCake };
+export default validateCake;

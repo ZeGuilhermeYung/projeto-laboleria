@@ -11,21 +11,19 @@ async function findClient(id) {
   return result.rows[0];
 }
 
-async function deletePost(id) {
-  const query = `DELETE FROM posts WHERE id = $1;`;
-  return db.query(query, [id]);
-}
-
-async function updatePost(id, description) {
-  const query = `UPDATE posts SET "description" = $2 WHERE id = $1;`;
-  return db.query(query, [id, description]);
+async function findClientOrders(id) {
+  const query = `SELECT o."id" AS "orderId", o."quantity", o."createdAt", o."totalPrice", c."name" AS "cakeName"
+  FROM orders o
+  JOIN cakes c ON o."cakeId" = c."id"
+  WHERE o."clientId" = $1;`;
+  const result = await db.query(query, [id]);
+  return result.rows;
 }
 
 const clientsRepository = {
   insertClient,
   findClient,
-  deletePost,
-  updatePost,
+  findClientOrders
 };
 
 export { clientsRepository };
