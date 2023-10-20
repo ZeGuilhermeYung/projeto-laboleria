@@ -3,28 +3,31 @@ import db from "../database/db.js";
 async function insertOrder(clientId, cakeId, quantity, totalPrice) {
     const query = `INSERT INTO orders ("clientId", "cakeId" , quantity, "totalPrice") VALUES ( $1, $2, $3, $4 );`;
     return db.query(query, [clientId, cakeId, quantity, totalPrice]);
-  }
+}
   
-  async function getPosts() {
-    const query = `SELECT * FROM posts ORDER BY id DESC LIMIT 20;`;
-    const result = await db.query(query);
-    return result.rows;
-  }
-  
-  async function deletePost(id) {
-    const query = `DELETE FROM posts WHERE id = $1;`;
-    return db.query(query, [id]);
-  }
-  
-  async function updatePost(id, description) {
-    const query = `UPDATE posts SET "description" = $2 WHERE id = $1;`;
-    return db.query(query, [id, description]);
-  }
-  
-  const ordersRepository = {
-    insertOrder,
-    deletePost,
-    updatePost,
-  };
+async function findDayOrders(date) {
+  const query = `SELECT * FROM orders WHERE SUBSTRING(TO_CHAR("createdAt", 'YYYY-MM-DD HH24:MI:SS') FROM 1 FOR 10) = $1;`;
+  const result = await db.query(query, [date]);
+  return result.rows;
+}
+
+async function findOrdersById(id) {
+  const query = `SELECT * FROM orders WHERE id = $1;`;
+  const result = await db.query(query, [id]);
+  return result.rows;
+}
+
+async function findAllOrders() {
+  const query = `SELECT * FROM orders;`;
+  const result = await db.query(query);
+  return result.rows;
+}
+
+const ordersRepository = {
+  insertOrder,
+  findDayOrders,
+  findOrdersById,
+  findAllOrders
+};
   
   export { ordersRepository };
