@@ -14,12 +14,16 @@ JOIN clients cl ON o."clientId" = cl."id"
 JOIN cakes ca ON o."cakeId" = ca."id"`;
 
 async function insertOrder(clientId, cakeId, quantity, totalPrice) {
-    const query = `INSERT INTO orders ("clientId", "cakeId" , quantity, "totalPrice") VALUES ( $1, $2, $3, $4 );`;
+    const query = `INSERT INTO orders
+      ("clientId", "cakeId" , quantity, "totalPrice")
+      VALUES ( $1, $2, $3, $4 );`;
     return db.query(query, [clientId, cakeId, quantity, totalPrice]);
 }
   
 async function findDayOrders(date) {
-  const query = `${findOrders}WHERE SUBSTRING(TO_CHAR("createdAt", 'YYYY-MM-DD HH24:MI:SS') FROM 1 FOR 10) = $1;`;
+  const query = `${findOrders} 
+    WHERE SUBSTRING(TO_CHAR("createdAt", 'YYYY-MM-DD HH24:MI:SS')
+    FROM 1 FOR 10) = $1;`;
   const result = await db.query(query, [date]);
   return result.rows;
 }
