@@ -57,29 +57,25 @@ async function collectOrders (req, res, next) {
   let orders = await ordersRepository.findAllOrders();
 
   if (date) orders = await ordersRepository.findDayOrders(date);
+  console.log(orders);
 
-  if (!orders) {
-    res.send("").status(404);
-    return;
-  }
+  if (orders.length === 0) return res.status(404).send([]);
 
   res.locals.body = await mountOrders(orders);
   
   next();
 }
 
-async function collectOrdersById (req, res, next) {
+async function collectOrderById (req, res, next) {
   const { id } = req.params;
-  const orders = await ordersRepository.findOrdersById(id);
+  const order = await ordersRepository.findOrderById(id);
+  console.log(order);
 
-  if (!orders) {
-    res.sendStatus(404);
-    return;
-  }
+  if (order.length === 0) return res.sendStatus(404);
 
-  res.locals.body = await mountOrders(orders);
+  res.locals.body = await mountOrders(order);
     
   next();
 }
 
-export { validateOrder, collectOrders, collectOrdersById };
+export { validateOrder, collectOrders, collectOrderById };

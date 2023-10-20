@@ -11,7 +11,7 @@ async function findDayOrders(date) {
   return result.rows;
 }
 
-async function findOrdersById(id) {
+async function findOrderById(id) {
   const query = `SELECT * FROM orders WHERE id = $1;`;
   const result = await db.query(query, [id]);
   return result.rows;
@@ -26,7 +26,7 @@ async function findAllOrders() {
 const ordersRepository = {
   insertOrder,
   findDayOrders,
-  findOrdersById,
+  findOrderById,
   findAllOrders
 };
   
